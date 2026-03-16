@@ -9,6 +9,10 @@ public class SteamService {
 
     public String getSteamIdFromNickname(String nickname){
 
+        if(isNumeric(nickname)){
+            return nickname;
+        }
+
         String url = buildSteamIdUrl(nickname);
 
         JsonObject response = request(url).getAsJsonObject("response");
@@ -111,6 +115,10 @@ public class SteamService {
         return "https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/"
                 + "?key=" + API_KEY
                 + "&vanityurl=" + nickname;
+    }
+
+    private boolean isNumeric(String str) {
+        return str.matches("\\d+");
     }
 }
 
